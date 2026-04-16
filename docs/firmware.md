@@ -1,6 +1,6 @@
 # Firmware
 
-## Project Setup
+## ESP32 Setup
 
 Created PlatformIO project in /firmware with following command:
 
@@ -30,3 +30,14 @@ void loop() {
   delay(100);
 }
 ```
+
+## Raspberry Pi 4 Model B Setup
+
+1. Download & Install Raspberry Pi Imager
+2. Raspberry Pi OS (64bit)
+3. Select Boot Device
+4. Hostname, Password
+5. WiFi Connection
+6. Enable SSH with password
+7. Write on Micro SD-Card
+8. Insert into Raspberry Pi
