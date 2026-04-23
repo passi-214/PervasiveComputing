@@ -2,19 +2,22 @@
 #include <mysql.h>
 #include <express/legacy/in/WebApp.h>
 #include <nlohmann/json.hpp>
+#include "dotenv.h"
+#include <string>
 
 int main(int argc, char* argv[]) {
     express::WebApp::init(argc, argv);
     using App = express::legacy::in::WebApp;
     App app;
+    loadDotEnv();
 
     const database::mariadb::MariaDBConnectionDetails dbDetails = {
         .connectionName = "db",
         .hostname = "localhost",
-        .username = "root",
-        .password = "m00st3rm4nn",
-        .database = "max",
-        .port = 3306,
+        .username = getEnvOr("DB_USER", "root"),
+        .password = getEnvOr("DB_PASSWORD", ""),
+        .database = getEnvOr("DB_NAME", "snodec"),
+	.port = static_cast<unsigned int>(std::stoul(getEnvOr("DB_PORT", "3306"))),
         .socket = "/run/mysqld/mysqld.sock",
         .flags = 0,
     };

@@ -1,3 +1,0 @@
-/home/max/src/backend-db/build/CMakeFiles/backend_db.dir
-/home/max/src/backend-db/build/CMakeFiles/edit_cache.dir
-/home/max/src/backend-db/build/CMakeFiles/rebuild_cache.dir

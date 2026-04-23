@@ -11,6 +11,7 @@ find_package(snodec REQUIRED COMPONENTS
 
 add_executable(backend_db
     src/main.cpp
+    src/dotenv.cpp
 )
 
 target_link_libraries(backend_db PRIVATE
