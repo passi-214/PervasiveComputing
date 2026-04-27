@@ -409,7 +409,8 @@ a {
 }
 
 .gps-card {
-  gap: 16px;
+  align-content: space-between;
+  gap: 20px;
 }
 
 .gps-card__icon,
@@ -421,35 +422,46 @@ a {
   color: var(--color-red);
 }
 
-.gps-card__map {
-  position: relative;
-  min-height: 180px;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
+.gps-card__location {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid rgba(67, 243, 106, 0.24);
   border-radius: var(--radius-card);
-  background:
-    linear-gradient(130deg, transparent 0 45%, rgba(37, 132, 255, 0.28) 45% 55%, transparent 55%),
-    linear-gradient(rgba(174, 187, 224, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(174, 187, 224, 0.08) 1px, transparent 1px),
-    rgba(4, 18, 39, 0.92);
-  background-size: auto, 34px 34px, 34px 34px, auto;
+  background: rgba(67, 243, 106, 0.06);
 }
 
-.gps-card__pin {
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  width: 28px;
-  height: 28px;
-  border: 7px solid var(--color-blue);
-  border-radius: 50% 50% 50% 0;
-  transform: translate(-50%, -50%) rotate(-45deg);
-  box-shadow: 0 0 0 16px rgba(37, 132, 255, 0.16), 0 0 0 34px rgba(37, 132, 255, 0.08);
+.gps-card__location span,
+.gps-card__coords span {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
+.gps-card__location strong {
+  color: var(--color-text);
+  font-size: 1.35rem;
+  line-height: 1.2;
 }
 
 .gps-card__coords {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+}
+
+.gps-card__coords div {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.gps-card__coords strong {
+  color: var(--color-text);
+  font-size: 0.95rem;
 }
 
 .gps-card__fix {

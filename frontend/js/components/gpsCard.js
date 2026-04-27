@@ -1,13 +1,15 @@
 import { sensorIcons } from "../utils/icons.js";
 
-// TODO: Replace the placeholder map with a real map embed or map API using latitude/longitude.
+// TODO: Clarify how the frontend receives a human-readable location name.
+// Possible sources: backend-provided location_name, device metadata, or reverse geocoding.
 
-export function createGpsCard({ latitude, longitude, hasFix = true }) {
+export function createGpsCard({ latitude, longitude, locationName, hasFix = true }) {
   const card = document.createElement("article");
   card.className = "gps-card card";
 
   const lat = latitude ?? "--";
   const lon = longitude ?? "--";
+  const displayName = locationName || "Unknown location";
 
   card.innerHTML = `
     <div class="gps-card__top">
@@ -19,12 +21,19 @@ export function createGpsCard({ latitude, longitude, hasFix = true }) {
         <p>GPS</p>
       </div>
     </div>
-    <div class="gps-card__map" aria-hidden="true">
-      <div class="gps-card__pin"></div>
+    <div class="gps-card__location">
+      <span>Current Position</span>
+      <strong>${displayName}</strong>
     </div>
     <div class="gps-card__coords">
-      <strong>${lat}</strong>
-      <strong>${lon}</strong>
+      <div>
+        <span>Latitude</span>
+        <strong>${lat}</strong>
+      </div>
+      <div>
+        <span>Longitude</span>
+        <strong>${lon}</strong>
+      </div>
     </div>
     <div class="gps-card__fix ${hasFix ? "gps-card__fix--ok" : "gps-card__fix--lost"}">
       <span></span>
