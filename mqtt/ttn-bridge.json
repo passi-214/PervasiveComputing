@@ -1,0 +1,77 @@
+{
+    "bridges": [
+        {
+            "brokers": [
+                {
+                    "disabled": false,
+                    "mqtt": {
+                        "clean_session": true,
+                        "client_id": "bridge-ttn-test",
+                        "keep_alive": 60,
+                        "loop_prevention": false,
+                        "password": "NNSXS.4NTL24EM5RGKU5J2YW54VONSRL2ODRSIW2CXL7A.V5UBH3PNSQ6YNJFSQZCJ6RSQHVLLCB3W5TX6XHJL5EEWLIRBAGNQ",
+                        "username": "maxmustermann@ttn",
+                        "will_message": "",
+                        "will_qos": 0,
+                        "will_retain": false,
+                        "will_topic": ""
+                    },
+                    "network": {
+                        "encryption": "tls",
+                        "in": {
+                            "host": "eu1.cloud.thethings.network",
+                            "port": 8883
+                        },
+                        "instance_name": "ttn-mqtts",
+                        "protocol": "in",
+                        "transport": "stream"
+                    },
+                    "prefix": "",
+                    "session_store": "",
+                    "topics": [
+                        {
+                            "qos": 0,
+                            "topic": "v3/maxmustermann@ttn/devices/+/up"
+                        }
+                    ]
+                },
+                {
+                    "disabled": false,
+                    "mqtt": {
+                        "clean_session": true,
+                        "client_id": "bridge-local",
+                        "keep_alive": 60,
+                        "loop_prevention": false,
+                        "password": "",
+                        "username": "",
+                        "will_message": "",
+                        "will_qos": 0,
+                        "will_retain": false,
+                        "will_topic": ""
+                    },
+                    "network": {
+                        "encryption": "legacy",
+                        "in": {
+                            "host": "127.0.0.1",
+                            "port": 1883
+                        },
+                        "instance_name": "local-mqtt",
+                        "protocol": "in",
+                        "transport": "stream"
+                    },
+                    "prefix": "",
+                    "session_store": "",
+                    "topics": [
+                        {
+                            "qos": 0,
+                            "topic": "#"
+                        }
+                    ]
+                }
+            ],
+            "disabled": false,
+            "name": "ttn-to-local",
+            "prefix": ""
+        }
+    ]
+}
