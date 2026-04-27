@@ -1,0 +1,125 @@
+:root {
+  color-scheme: dark;
+  --color-page: #17191d;
+  --color-surface: #031329;
+  --color-surface-strong: #061b38;
+  --color-surface-soft: rgba(8, 31, 64, 0.78);
+  --color-border: rgba(70, 138, 225, 0.28);
+  --color-border-strong: rgba(80, 153, 255, 0.48);
+  --color-text: #f4f7ff;
+  --color-text-muted: #aebbe0;
+  --color-text-soft: #7f8cb4;
+  --color-blue: #2584ff;
+  --color-cyan: #1ce4e9;
+  --color-green: #43f36a;
+  --color-yellow: #ffd13f;
+  --color-red: #ff515d;
+  --color-purple: #985cff;
+  --shadow-panel: 0 24px 70px rgba(0, 0, 0, 0.34);
+  --shadow-glow-blue: 0 0 24px rgba(37, 132, 255, 0.28);
+  --radius-panel: 12px;
+  --radius-card: 8px;
+  --font-main: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--color-page);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  background:
+    radial-gradient(circle at 84% 20%, rgba(37, 132, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #191a1d 0%, #15171a 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 0;
+}
+
+.dashboard-frame {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(rgba(29, 122, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 122, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 80% 12%, rgba(20, 110, 255, 0.16), transparent 26%),
+    linear-gradient(135deg, #041126 0%, #05162e 46%, #031022 100%);
+  background-size: 32px 32px, 32px 32px, auto, auto;
+  box-shadow: var(--shadow-panel);
+}
+
+.dashboard-content {
+  min-height: inherit;
+  padding: clamp(16px, 2.2vw, 28px);
+}
+
+.panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+  background: linear-gradient(135deg, rgba(7, 28, 61, 0.92), rgba(3, 16, 34, 0.86));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, rgba(7, 27, 59, 0.92), rgba(4, 18, 39, 0.95));
+}
+
+.section-title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  .dashboard-content {
+    padding: 14px;
+  }
+}
