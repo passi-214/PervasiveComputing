@@ -1,0 +1,101 @@
+[
+  {
+    "device_id": "WQ-01",
+    "ts": "2026-04-27T09:20:00Z",
+    "temp_c": 21.1,
+    "ph": 7.14,
+    "tds_ppm": 528,
+    "turb_ntu": 4.9,
+    "lat": 48.305123,
+    "lon": 14.286789,
+    "sensor_ok": true,
+    "payload_version": 1
+  },
+  {
+    "device_id": "WQ-01",
+    "ts": "2026-04-27T09:25:00Z",
+    "temp_c": 21.4,
+    "ph": 7.18,
+    "tds_ppm": 532,
+    "turb_ntu": 4.7,
+    "lat": 48.305123,
+    "lon": 14.286789,
+    "sensor_ok": true,
+    "payload_version": 1
+  },
+  {
+    "device_id": "WQ-01",
+    "ts": "2026-04-27T09:30:00Z",
+    "temp_c": 21.6,
+    "ph": 7.19,
+    "tds_ppm": 531,
+    "turb_ntu": 4.6,
+    "lat": 48.305123,
+    "lon": 14.286789,
+    "sensor_ok": true,
+    "payload_version": 1
+  },
+  {
+    "device_id": "WQ-02",
+    "ts": "2026-04-27T09:15:00Z",
+    "temp_c": 18.9,
+    "ph": 6.82,
+    "tds_ppm": 615,
+    "turb_ntu": 8.4,
+    "lat": 48.311456,
+    "lon": 14.291223,
+    "sensor_ok": true,
+    "payload_version": 1
+  },
+  {
+    "device_id": "WQ-02",
+    "ts": "2026-04-27T09:20:00Z",
+    "temp_c": 19.0,
+    "ph": 6.79,
+    "tds_ppm": 622,
+    "turb_ntu": 8.9,
+    "lat": 48.311456,
+    "lon": 14.291223,
+    "sensor_ok": true,
+    "payload_version": 1
+  },
+  {
+    "device_id": "WQ-02",
+    "ts": "2026-04-27T09:25:00Z",
+    "temp_c": 19.3,
+    "ph": 6.74,
+    "tds_ppm": 630,
+    "turb_ntu": 9.5,
+    "lat": 48.311456,
+    "lon": 14.291223,
+    "sensor_ok": false,
+    "processing_status": "warning",
+    "payload_version": 1
+  },
+  {
+    "device_id": "WQ-03",
+    "ts": "2026-04-27T08:55:00Z",
+    "temp_c": 22.8,
+    "ph": 7.42,
+    "tds_ppm": 480,
+    "turb_ntu": 2.8,
+    "lat": 48.298765,
+    "lon": 14.276543,
+    "sensor_ok": true,
+    "processing_status": "stale_candidate",
+    "payload_version": 1
+  },
+  {
+    "device_id": "WQ-03",
+    "ts": "2026-04-27T09:00:00Z",
+    "temp_c": 22.6,
+    "ph": 7.39,
+    "tds_ppm": 482,
+    "turb_ntu": 2.9,
+    "lat": 48.298765,
+    "lon": 14.276543,
+    "sensor_ok": true,
+    "processing_status": "stale_candidate",
+    "payload_version": 1
+  }
+]
