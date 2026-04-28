@@ -1,0 +1,680 @@
+:root {
+  color-scheme: dark;
+  --color-page: #17191d;
+  --color-surface: #031329;
+  --color-surface-strong: #061b38;
+  --color-surface-soft: rgba(8, 31, 64, 0.78);
+  --color-border: rgba(70, 138, 225, 0.28);
+  --color-border-strong: rgba(80, 153, 255, 0.48);
+  --color-text: #f4f7ff;
+  --color-text-muted: #aebbe0;
+  --color-text-soft: #7f8cb4;
+  --color-blue: #2584ff;
+  --color-cyan: #1ce4e9;
+  --color-green: #43f36a;
+  --color-yellow: #ffd13f;
+  --color-red: #ff515d;
+  --color-purple: #985cff;
+  --shadow-panel: 0 24px 70px rgba(0, 0, 0, 0.34);
+  --shadow-glow-blue: 0 0 24px rgba(37, 132, 255, 0.28);
+  --radius-panel: 12px;
+  --radius-card: 8px;
+  --font-main: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--color-page);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  background:
+    radial-gradient(circle at 84% 20%, rgba(37, 132, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #191a1d 0%, #15171a 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 0;
+}
+
+.dashboard-frame {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(rgba(29, 122, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 122, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 80% 12%, rgba(20, 110, 255, 0.16), transparent 26%),
+    linear-gradient(135deg, #041126 0%, #05162e 46%, #031022 100%);
+  background-size: 32px 32px, 32px 32px, auto, auto;
+  box-shadow: var(--shadow-panel);
+}
+
+.dashboard-content {
+  min-height: inherit;
+  padding: clamp(16px, 2.2vw, 28px);
+}
+
+.panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+  background: linear-gradient(135deg, rgba(7, 28, 61, 0.92), rgba(3, 16, 34, 0.86));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, rgba(7, 27, 59, 0.92), rgba(4, 18, 39, 0.95));
+}
+
+.section-title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.button {
+  min-height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: rgba(5, 18, 39, 0.72);
+  cursor: pointer;
+}
+
+.button--ghost:hover {
+  border-color: var(--color-border-strong);
+  background: rgba(12, 37, 78, 0.86);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 34px;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-card);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  background: transparent;
+}
+
+.status-badge__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.status-badge span {
+  color: currentColor;
+}
+
+.status-badge--live,
+.status-badge--good {
+  color: var(--color-green);
+}
+
+.status-badge--stale {
+  color: var(--color-yellow);
+}
+
+.status-badge--inactive {
+  color: var(--color-text-soft);
+}
+
+.status-badge--error {
+  color: var(--color-red);
+}
+
+.dashboard-header .status-badge--live {
+  color: var(--color-green);
+}
+
+.dashboard-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 26px;
+}
+
+.dashboard-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 210px;
+}
+
+.dashboard-header__logo {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: var(--radius-card);
+  color: var(--color-blue);
+  font-weight: 800;
+  background: rgba(37, 132, 255, 0.12);
+  border: 1px solid rgba(37, 132, 255, 0.24);
+}
+
+.dashboard-header__title,
+.dashboard-header__subtitle,
+.dashboard-header__field > span,
+.sensor-card h2,
+.sensor-card p,
+.gps-card h2,
+.gps-card p {
+  margin: 0;
+}
+
+.dashboard-header__title {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.dashboard-header__subtitle {
+  margin-top: 4px;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.dashboard-header__meta {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.dashboard-header__field {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  min-width: 150px;
+  padding: 0 24px;
+  border-left: 1px solid rgba(174, 187, 224, 0.16);
+}
+
+.dashboard-header__field > span {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.dashboard-header__field strong {
+  font-size: 1rem;
+}
+
+.dashboard-header__select {
+  min-height: 40px;
+  padding: 0 38px 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  background: rgba(3, 19, 41, 0.82);
+}
+
+.sensor-card,
+.gps-card {
+  display: grid;
+  min-height: 430px;
+  padding: 24px;
+}
+
+.sensor-card {
+  align-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.sensor-card::after {
+  position: absolute;
+  right: 18px;
+  bottom: -42px;
+  left: 18px;
+  height: 86px;
+  border-radius: 999px;
+  content: "";
+  filter: blur(22px);
+  opacity: 0.52;
+}
+
+.sensor-card--temperature {
+  border-color: rgba(255, 81, 93, 0.48);
+  color: var(--color-red);
+}
+
+.sensor-card--temperature::after {
+  background: var(--color-red);
+}
+
+.sensor-card--conductivity {
+  border-color: rgba(37, 132, 255, 0.48);
+  color: var(--color-blue);
+}
+
+.sensor-card--conductivity::after {
+  background: var(--color-blue);
+}
+
+.sensor-card--turbidity {
+  border-color: rgba(28, 228, 233, 0.48);
+  color: var(--color-cyan);
+}
+
+.sensor-card--turbidity::after {
+  background: var(--color-cyan);
+}
+
+.sensor-card__top,
+.gps-card__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sensor-card__icon,
+.gps-card__icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: var(--radius-card);
+  color: currentColor;
+  font-size: 0.875rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid currentColor;
+}
+
+.sensor-card__icon svg,
+.gps-card__icon svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.sensor-card h2,
+.gps-card h2 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.sensor-card p,
+.gps-card p {
+  margin-top: 6px;
+  color: var(--color-text-muted);
+}
+
+.sensor-card__value {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.sensor-card__value strong {
+  color: currentColor;
+  font-size: clamp(3.5rem, 5vw, 5rem);
+  line-height: 0.95;
+}
+
+.sensor-card__value span {
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.sensor-card__trend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  color: var(--color-green);
+}
+
+.sensor-card__trend--down {
+  color: var(--color-red);
+}
+
+.sensor-card__trend--same {
+  color: var(--color-text-muted);
+}
+
+.sensor-card__trend--empty {
+  visibility: hidden;
+}
+
+.sensor-card__trend-icon {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 999px;
+  color: currentColor;
+  font-size: 1.05rem;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sensor-card__trend strong {
+  color: currentColor;
+}
+
+.sensor-card__timestamp,
+.gps-card__timestamp {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(174, 187, 224, 0.14);
+}
+
+.sensor-card__timestamp span,
+.gps-card__timestamp span {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
+.sensor-card__timestamp strong,
+.gps-card__timestamp strong {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.gps-card {
+  align-content: space-between;
+  gap: 20px;
+}
+
+.gps-card__icon {
+  color: var(--color-green);
+}
+
+.gps-card__location {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid rgba(67, 243, 106, 0.24);
+  border-radius: var(--radius-card);
+  background: rgba(67, 243, 106, 0.06);
+}
+
+.gps-card__location span,
+.gps-card__coords span {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
+.gps-card__location strong {
+  color: var(--color-text);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.gps-card__coords {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.gps-card__coords div {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.gps-card__coords strong {
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.device-card {
+  display: grid;
+  gap: 18px;
+  min-height: 240px;
+  padding: 22px;
+  cursor: pointer;
+  transition: border-color 160ms ease, opacity 160ms ease, transform 160ms ease;
+}
+
+.device-card:not(.device-card--disabled):hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-2px);
+}
+
+.device-card--disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.device-card:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+}
+
+.device-card__eyebrow,
+.device-card__description,
+.device-card__timestamp {
+  color: var(--color-text-muted);
+}
+
+.device-card h2 {
+  margin: 6px 0 0;
+  font-size: 1.75rem;
+}
+
+.device-card__timestamp {
+  margin: 0;
+}
+
+.device-card__description {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.global-overview-page {
+  display: grid;
+  gap: clamp(36px, 6vh, 72px);
+  min-height: calc(100vh - 56px);
+  align-content: start;
+}
+
+.global-overview-page__header {
+  display: grid;
+  gap: 8px;
+  max-width: 720px;
+}
+
+.global-overview-page__header h1,
+.global-overview-page__header p,
+.global-overview-page__header span {
+  margin: 0;
+}
+
+.global-overview-page__header h1 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1;
+}
+
+.global-overview-page__header span {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.global-overview-page__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: clamp(40px, 9vh, 120px);
+}
+
+.device-overview-page {
+  display: grid;
+  gap: clamp(36px, 6vh, 72px);
+}
+
+.device-overview-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
+  gap: 18px;
+  margin-top: clamp(40px, 9vh, 120px);
+}
+
+.stat-card {
+  display: grid;
+  gap: 12px;
+  padding: 0 28px;
+  border-left: 1px solid rgba(174, 187, 224, 0.16);
+}
+
+.stat-card:first-child {
+  border-left: 0;
+}
+
+.stat-card span {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.stat-card strong {
+  color: var(--color-blue);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.stat-card small {
+  color: var(--color-text-muted);
+}
+
+.time-range-selector {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+.time-range-selector__button {
+  min-width: 74px;
+  min-height: 42px;
+  border: 0;
+  border-left: 1px solid rgba(174, 187, 224, 0.14);
+  color: var(--color-text-muted);
+  background: rgba(4, 18, 39, 0.72);
+  cursor: pointer;
+}
+
+.time-range-selector__button:first-child {
+  border-left: 0;
+}
+
+.time-range-selector__button--active {
+  color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--color-red);
+}
+
+.line-chart {
+  display: block;
+  width: 100%;
+  min-height: 260px;
+}
+
+@media (max-width: 720px) {
+  .dashboard-content {
+    padding: 14px;
+  }
+
+  .dashboard-header,
+  .dashboard-header__meta {
+    display: grid;
+  }
+
+  .dashboard-header {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .dashboard-header__field {
+    min-width: 0;
+    padding: 16px 0 0;
+    border-top: 1px solid rgba(174, 187, 224, 0.16);
+    border-left: 0;
+  }
+
+  .sensor-card,
+  .gps-card {
+    min-height: 360px;
+    padding: 20px;
+  }
+
+  .global-overview-page__grid,
+  .device-overview-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 18px 0;
+    border-top: 1px solid rgba(174, 187, 224, 0.16);
+    border-left: 0;
+  }
+
+  .stat-card:first-child {
+    border-top: 0;
+  }
+
+}
