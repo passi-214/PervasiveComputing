@@ -647,12 +647,6 @@ a {
   margin-bottom: 18px;
 }
 
-.temperature-detail-page__range,
-.sensor-detail-page__range {
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-}
-
 .temperature-detail-page__stats,
 .sensor-detail-page__stats {
   display: grid;

@@ -28,7 +28,6 @@ export async function renderTurbidityDetailPage(app, deviceId) {
   const measurements = await getMeasurementsByDevice(deviceId);
   const latest = measurements.at(-1);
   const previous = measurements.at(-2);
-  // TODO: Filter history to the last 30 minutes once backend timestamps are final.
   const recentMeasurements = measurements;
 
   const page = document.createElement("section");
@@ -72,9 +71,7 @@ export async function renderTurbidityDetailPage(app, deviceId) {
   const chartPanel = document.createElement("article");
   chartPanel.className = "sensor-detail-page__chart panel";
   chartPanel.innerHTML = `
-    <div class="sensor-detail-page__chart-header">
-      <span class="sensor-detail-page__range">Last 30 minutes</span>
-    </div>
+    <div class="sensor-detail-page__chart-header"></div>
   `;
   chartPanel.append(createLineChart({
     points: recentMeasurements,
@@ -91,7 +88,6 @@ export async function renderTurbidityDetailPage(app, deviceId) {
   statsPanel.innerHTML = `
     <div class="sensor-detail-page__stats-header">
       <h2 class="section-title">Statistics</h2>
-      <span class="sensor-detail-page__range">Last 30 minutes</span>
     </div>
   `;
 
