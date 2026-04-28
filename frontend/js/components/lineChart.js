@@ -3,6 +3,7 @@
 export function createLineChart({
   points = [],
   valueKey,
+  unit = "",
   stroke = "#ff515d",
   min,
   max
@@ -13,30 +14,38 @@ export function createLineChart({
   canvas.height = 320;
 
   requestAnimationFrame(() => {
-    drawLineChart(canvas, { points, valueKey, stroke, min, max });
+    drawLineChart(canvas, { points, valueKey, unit, stroke, min, max });
   });
 
   return canvas;
 }
 
-export function drawLineChart(canvas, { points, valueKey, stroke, min, max }) {
+export function drawLineChart(canvas, { points, valueKey, unit, stroke, min, max }) {
   const context = canvas.getContext("2d");
   const width = canvas.width;
   const height = canvas.height;
-  const padding = 32;
+  const padding = {
+    top: 24,
+    right: 24,
+    bottom: 42,
+    left: 84
+  };
   const values = points
     .map((point) => Number(point[valueKey]))
     .filter((value) => !Number.isNaN(value));
 
   context.clearRect(0, 0, width, height);
+  context.font = "13px sans-serif";
+  context.textBaseline = "middle";
   context.strokeStyle = "rgba(174, 187, 224, 0.14)";
+  context.fillStyle = "rgba(174, 187, 224, 0.86)";
   context.lineWidth = 1;
 
   for (let i = 0; i < 5; i += 1) {
-    const y = padding + ((height - padding * 2) / 4) * i;
+    const y = padding.top + ((height - padding.top - padding.bottom) / 4) * i;
     context.beginPath();
-    context.moveTo(padding, y);
-    context.lineTo(width - padding, y);
+    context.moveTo(padding.left, y);
+    context.lineTo(width - padding.right, y);
     context.stroke();
   }
 
@@ -47,12 +56,43 @@ export function drawLineChart(canvas, { points, valueKey, stroke, min, max }) {
   const chartMin = min ?? Math.min(...values);
   const chartMax = max ?? Math.max(...values);
   const range = chartMax - chartMin || 1;
-  const stepX = (width - padding * 2) / (values.length - 1);
+  const chartWidth = width - padding.left - padding.right;
+  const chartHeight = height - padding.top - padding.bottom;
+  const stepX = chartWidth / (values.length - 1);
+
+  context.textAlign = "right";
+  for (let i = 0; i < 5; i += 1) {
+    const ratio = i / 4;
+    const value = chartMax - range * ratio;
+    const y = padding.top + chartHeight * ratio;
+    context.fillText(`${value.toFixed(1)}${unit}`, padding.left - 12, y);
+  }
+
+  context.textAlign = "center";
+  const firstPoint = points[0];
+  const lastPoint = points[points.length - 1];
+  [firstPoint, lastPoint].forEach((point, index) => {
+    if (!point?.ts) {
+      return;
+    }
+
+    const date = new Date(point.ts);
+    if (Number.isNaN(date.getTime())) {
+      return;
+    }
+
+    const x = index === 0 ? padding.left : width - padding.right;
+    const label = new Intl.DateTimeFormat("de-AT", {
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(date);
+    context.fillText(label, x, height - 18);
+  });
 
   context.beginPath();
   values.forEach((value, index) => {
-    const x = padding + stepX * index;
-    const y = height - padding - ((value - chartMin) / range) * (height - padding * 2);
+    const x = padding.left + stepX * index;
+    const y = height - padding.bottom - ((value - chartMin) / range) * chartHeight;
 
     if (index === 0) {
       context.moveTo(x, y);

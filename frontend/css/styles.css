@@ -576,6 +576,116 @@ a {
   margin-top: clamp(40px, 9vh, 120px);
 }
 
+.sensor-card--clickable {
+  cursor: pointer;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.sensor-card--clickable:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-2px);
+}
+
+.sensor-card--clickable:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+}
+
+.temperature-detail-page,
+.sensor-detail-page {
+  display: grid;
+  gap: 24px;
+}
+
+.temperature-detail-page__topbar,
+.sensor-detail-page__topbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.temperature-detail-page__title,
+.sensor-detail-page__title {
+  display: grid;
+  gap: 8px;
+}
+
+.temperature-detail-page__title h1,
+.temperature-detail-page__title p,
+.sensor-detail-page__title h1 {
+  margin: 0;
+}
+
+.temperature-detail-page__title h1,
+.sensor-detail-page__title h1 {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  line-height: 1;
+}
+
+.temperature-detail-page__content,
+.sensor-detail-page__content {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.55fr) minmax(0, 1.8fr);
+  gap: 18px;
+}
+
+.temperature-detail-page__summary,
+.sensor-detail-page__summary {
+  min-height: 420px;
+}
+
+.temperature-detail-page__chart,
+.sensor-detail-page__chart {
+  padding: 24px;
+}
+
+.temperature-detail-page__chart-header,
+.sensor-detail-page__chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.temperature-detail-page__range,
+.sensor-detail-page__range {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.temperature-detail-page__stats,
+.sensor-detail-page__stats {
+  display: grid;
+  gap: 24px;
+  padding: 24px;
+}
+
+.temperature-detail-page__stats-header,
+.sensor-detail-page__stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.temperature-detail-page__stat-grid,
+.sensor-detail-page__stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+}
+
+.temperature-detail-page .stat-card strong {
+  color: var(--color-red);
+}
+
+.sensor-detail-page--conductivity .stat-card strong {
+  color: var(--color-blue);
+}
+
+.sensor-detail-page--turbidity .stat-card strong {
+  color: var(--color-cyan);
+}
+
 .stat-card {
   display: grid;
   gap: 12px;
@@ -663,8 +773,24 @@ a {
   }
 
   .global-overview-page__grid,
-  .device-overview-page__grid {
+  .device-overview-page__grid,
+  .temperature-detail-page__content,
+  .temperature-detail-page__stat-grid,
+  .sensor-detail-page__content,
+  .sensor-detail-page__stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .temperature-detail-page__chart-header,
+  .sensor-detail-page__chart-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .temperature-detail-page__stats-header,
+  .sensor-detail-page__stats-header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .stat-card {
