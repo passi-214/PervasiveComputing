@@ -1,6 +1,7 @@
 const STATUS_LABELS = {
   live: "Live",
   stale: "Stale",
+  inactive: "Inactive",
   error: "Error",
   good: "Good",
   okay: "OK",
