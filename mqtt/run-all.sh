@@ -10,8 +10,19 @@ cleanup() {
   for pid in "${pids[@]}"; do
     kill "$pid" 2>/dev/null || true
   done
+
+  pkill -f mqttbroker 2>/dev/null || true
+  pkill -f mqttbridge 2>/dev/null || true
+  pkill -f mqttcli 2>/dev/null || true
 }
+
 trap cleanup EXIT INT TERM
+
+echo "Cleaning up old processes..."
+pkill -f mqttbroker 2>/dev/null || true
+pkill -f mqttbridge 2>/dev/null || true
+pkill -f mqttcli 2>/dev/null || true
+sleep 1
 
 echo "Starting local broker..."
 mqttbroker in-mqtt --disabled=false &
@@ -26,7 +37,7 @@ pids+=("$!")
 sleep 2
 
 echo "Starting MQTT CLI DB subscriber..."
-mqttcli in-mqtt --disabled=false \
+"$HOME/src/PervasiveComputing/mqtt/build/mqttcli/mqttcli" in-mqtt --disabled=false \
   remote --host 127.0.0.1 --port 1883 \
   session --client-id "mqttcli-db" \
   db --database "max" \
