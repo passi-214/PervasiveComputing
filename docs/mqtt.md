@@ -118,7 +118,31 @@ Start local broker
 mqttbroker in-mqtt --disabled=false
 ```
 
-Start bridge with config
+Start bridge with config in another terminal
 ```zsh
 mqttbridge bridge --definition ~/src/PervasiveComputing/mqtt/ttn-bridge.json
+```
+
+Make start script with credentials
+```sh
+#!/usr/bin/env bash
+mqttcli in-mqtt --disabled=false \
+  remote --host 127.0.0.1 --port 1883 \
+  session --client-id "mqttcli-db" \
+  db --database "max" \
+     --username "root" \
+     --password "<password>" \
+     --host "127.0.0.1" \
+     --port 3306 \
+  sub --topic "v3/maxmustermann@ttn/devices/+/up"
+```
+
+Permission
+```zsh
+chmod +x run-mqttcli-db.sh
+```
+
+Run MQTT CLI
+```zsh
+./run-mqttcli-db.sh
 ```
