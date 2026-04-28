@@ -1,5 +1,5 @@
 import { createStatusBadge } from "./statusBadge.js";
-import { formatNumber } from "../utils/formatters.js";
+import { formatNumber, formatTimestamp } from "../utils/formatters.js";
 import { sensorIcons, trendIcons } from "../utils/icons.js";
 
 const SENSOR_THEME_CLASS = {
@@ -15,6 +15,7 @@ export function createSensorCard({
   value,
   decimals = 1,
   quality = "good",
+  lastMeasurement,
   trend
 }) {
   const card = document.createElement("article");
@@ -44,6 +45,10 @@ export function createSensorCard({
       <span>${unit}</span>
     </div>
     ${trendMarkup}
+    <div class="sensor-card__timestamp">
+      <span>Last Measurement:</span>
+      <strong>${formatTimestamp(lastMeasurement)}</strong>
+    </div>
   `;
 
   card.append(createStatusBadge(quality));

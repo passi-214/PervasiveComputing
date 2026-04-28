@@ -1,8 +1,6 @@
 import { createDeviceCard } from "../components/deviceCard.js";
 import { getLatestMeasurements } from "../api/measurementsApi.js";
-
-// Temporary placeholder nodes until multiple real devices are available from the backend.
-const INACTIVE_DEVICE_IDS = ["WQ-02", "WQ-03"];
+import { INACTIVE_DEVICE_IDS } from "../config/devices.js";
 
 export async function renderGlobalOverviewPage(app) {
   const latestMeasurements = await getLatestMeasurements();
@@ -26,11 +24,8 @@ export async function renderGlobalOverviewPage(app) {
       deviceId: activeMeasurement.device_id,
       status: "live",
       lastMeasurement: activeMeasurement.ts,
-      isDisabled: false,
-      onSelect: (deviceId) => {
-        // Route target for the future per-device overview page.
-        window.location.hash = `#/devices/${deviceId}`;
-      }
+      href: `#/devices/${activeMeasurement.device_id}`,
+      isDisabled: false
     }));
   }
 

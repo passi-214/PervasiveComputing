@@ -163,7 +163,6 @@ a {
   color: var(--color-green);
 }
 
-.status-badge--okay,
 .status-badge--stale {
   color: var(--color-yellow);
 }
@@ -172,7 +171,6 @@ a {
   color: var(--color-text-soft);
 }
 
-.status-badge--bad,
 .status-badge--error {
   color: var(--color-red);
 }
@@ -265,7 +263,7 @@ a {
 .sensor-card,
 .gps-card {
   display: grid;
-  min-height: 360px;
+  min-height: 430px;
   padding: 24px;
 }
 
@@ -412,18 +410,36 @@ a {
   color: currentColor;
 }
 
+.sensor-card__timestamp,
+.gps-card__timestamp {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(174, 187, 224, 0.14);
+}
+
+.sensor-card__timestamp span,
+.gps-card__timestamp span {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
+.sensor-card__timestamp strong,
+.gps-card__timestamp strong {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
 .gps-card {
   align-content: space-between;
   gap: 20px;
 }
 
-.gps-card__icon,
-.gps-card__fix--ok {
+.gps-card__icon {
   color: var(--color-green);
-}
-
-.gps-card__fix--lost {
-  color: var(--color-red);
 }
 
 .gps-card__location {
@@ -468,25 +484,10 @@ a {
   font-size: 0.95rem;
 }
 
-.gps-card__fix {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-.gps-card__fix span {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: currentColor;
-}
-
 .device-card {
   display: grid;
   gap: 18px;
-  min-height: 180px;
+  min-height: 240px;
   padding: 22px;
   cursor: pointer;
   transition: border-color 160ms ease, opacity 160ms ease, transform 160ms ease;
@@ -529,7 +530,7 @@ a {
 
 .global-overview-page {
   display: grid;
-  gap: 28px;
+  gap: clamp(36px, 6vh, 72px);
   min-height: calc(100vh - 56px);
   align-content: start;
 }
@@ -560,6 +561,19 @@ a {
   display: grid;
   grid-template-columns: repeat(3, minmax(220px, 1fr));
   gap: 18px;
+  margin-top: clamp(40px, 9vh, 120px);
+}
+
+.device-overview-page {
+  display: grid;
+  gap: clamp(36px, 6vh, 72px);
+}
+
+.device-overview-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
+  gap: 18px;
+  margin-top: clamp(40px, 9vh, 120px);
 }
 
 .stat-card {
@@ -644,8 +658,13 @@ a {
 
   .sensor-card,
   .gps-card {
-    min-height: 300px;
+    min-height: 360px;
     padding: 20px;
+  }
+
+  .global-overview-page__grid,
+  .device-overview-page__grid {
+    grid-template-columns: 1fr;
   }
 
   .stat-card {

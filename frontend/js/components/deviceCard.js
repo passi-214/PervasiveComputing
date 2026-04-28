@@ -6,14 +6,21 @@ export function createDeviceCard({
   status = "live",
   lastMeasurement,
   description,
+  href,
   isDisabled = false,
   onSelect
 }) {
-  const card = document.createElement("article");
+  const isLink = Boolean(href && !isDisabled);
+  const card = document.createElement(isLink ? "a" : "article");
   card.className = `device-card card ${isDisabled ? "device-card--disabled" : ""}`;
-  card.tabIndex = isDisabled ? -1 : 0;
-  card.role = "button";
   card.setAttribute("aria-disabled", String(isDisabled));
+
+  if (isLink) {
+    card.href = href;
+  } else {
+    card.tabIndex = isDisabled ? -1 : 0;
+    card.role = "button";
+  }
 
   card.innerHTML = `
     <div>
@@ -36,13 +43,18 @@ export function createDeviceCard({
     }
   };
 
-  card.addEventListener("click", selectDevice);
-  card.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      selectDevice();
-    }
-  });
+  if (onSelect) {
+    card.addEventListener("click", selectDevice);
+  }
+
+  if (!isLink) {
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectDevice();
+      }
+    });
+  }
 
   return card;
 }

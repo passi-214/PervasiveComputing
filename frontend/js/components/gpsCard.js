@@ -1,9 +1,10 @@
 import { sensorIcons } from "../utils/icons.js";
+import { formatTimestamp } from "../utils/formatters.js";
 
 // TODO: Clarify how the frontend receives a human-readable location name.
 // Possible sources: backend-provided location_name, device metadata, or reverse geocoding.
 
-export function createGpsCard({ latitude, longitude, locationName, hasFix = true }) {
+export function createGpsCard({ latitude, longitude, locationName, lastMeasurement }) {
   const card = document.createElement("article");
   card.className = "gps-card card";
 
@@ -35,9 +36,9 @@ export function createGpsCard({ latitude, longitude, locationName, hasFix = true
         <strong>${lon}</strong>
       </div>
     </div>
-    <div class="gps-card__fix ${hasFix ? "gps-card__fix--ok" : "gps-card__fix--lost"}">
-      <span></span>
-      ${hasFix ? "GPS Fix" : "No GPS Fix"}
+    <div class="gps-card__timestamp">
+      <span>Last Measurement:</span>
+      <strong>${formatTimestamp(lastMeasurement)}</strong>
     </div>
   `;
 

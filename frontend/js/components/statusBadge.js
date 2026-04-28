@@ -3,9 +3,7 @@ const STATUS_LABELS = {
   stale: "Stale",
   inactive: "Inactive",
   error: "Error",
-  good: "Good",
-  okay: "OK",
-  bad: "Bad"
+  good: "Good"
 };
 
 export function createStatusBadge(status, options = {}) {

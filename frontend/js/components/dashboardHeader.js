@@ -1,11 +1,10 @@
 import { createStatusBadge } from "./statusBadge.js";
-import { formatTimestamp } from "../utils/formatters.js";
 
 export function createDashboardHeader({
   deviceId,
   deviceIds = [],
+  disabledDeviceIds = [],
   status = "live",
-  lastMeasurement,
   showBackButton = false,
   onDeviceChange,
   onBack
@@ -39,6 +38,7 @@ export function createDashboardHeader({
     option.value = id;
     option.textContent = id;
     option.selected = id === deviceId;
+    option.disabled = disabledDeviceIds.includes(id);
     select.append(option);
   });
 
@@ -53,14 +53,7 @@ export function createDashboardHeader({
   statusField.innerHTML = `<span>Status</span>`;
   statusField.append(createStatusBadge(status, { label: status === "live" ? "LIVE" : undefined }));
 
-  const measurementField = document.createElement("div");
-  measurementField.className = "dashboard-header__field";
-  measurementField.innerHTML = `
-    <span>Last Measurement</span>
-    <strong>${formatTimestamp(lastMeasurement)}</strong>
-  `;
-
-  meta.append(nodeField, statusField, measurementField);
+  meta.append(nodeField, statusField);
 
   header.append(brand, meta);
 
