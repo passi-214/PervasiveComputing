@@ -410,6 +410,48 @@ a {
   color: currentColor;
 }
 
+.sensor-card__growth-risk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  min-height: 34px;
+  padding: 7px 14px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-card);
+  color: var(--color-yellow);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sensor-card__growth-risk--low {
+  color: var(--color-green);
+}
+
+.sensor-card__growth-risk--medium {
+  color: var(--color-yellow);
+}
+
+.sensor-card__growth-risk--high {
+  color: var(--color-red);
+}
+
+.sensor-card__growth-risk-dot {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 16px currentColor;
+}
+
+.sensor-card__growth-risk strong {
+  color: currentColor;
+  font-weight: 700;
+}
+
 .sensor-card__timestamp,
 .gps-card__timestamp {
   display: flex;

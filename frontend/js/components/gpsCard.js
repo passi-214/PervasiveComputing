@@ -10,7 +10,7 @@ export function createGpsCard({ latitude, longitude, locationName, lastMeasureme
 
   const lat = latitude ?? "--";
   const lon = longitude ?? "--";
-  const displayName = locationName || "Unknown location";
+  const displayName = locationName || "Softwarepark 11<br>4232 Hagenberg im Mühlkreis";
 
   card.innerHTML = `
     <div class="gps-card__top">
