@@ -68,9 +68,9 @@ export function drawLineChart(canvas, { points, valueKey, unit, stroke, min, max
     context.fillText(`${value.toFixed(1)}${unit}`, padding.left - 12, y);
   }
 
-  context.textAlign = "center";
   const firstPoint = points[0];
   const lastPoint = points[points.length - 1];
+
   [firstPoint, lastPoint].forEach((point, index) => {
     if (!point?.ts) {
       return;
@@ -81,11 +81,14 @@ export function drawLineChart(canvas, { points, valueKey, unit, stroke, min, max
       return;
     }
 
-    const x = index === 0 ? padding.left : width - padding.right;
     const label = new Intl.DateTimeFormat("de-AT", {
-      hour: "2-digit",
-      minute: "2-digit"
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
     }).format(date);
+
+    const x = index === 0 ? padding.left : width - padding.right;
+    context.textAlign = index === 0 ? "left" : "right";
     context.fillText(label, x, height - 18);
   });
 
