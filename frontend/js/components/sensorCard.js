@@ -20,6 +20,7 @@ export function createSensorCard({
   const card = document.createElement("article");
   card.className = `sensor-card card ${SENSOR_THEME_CLASS[sensorKey] || ""}`;
 
+  /*
   const trendMarkup = trend && trend.direction !== "none"
     ? `
       <div class="sensor-card__trend sensor-card__trend--${trend.direction}">
@@ -28,6 +29,8 @@ export function createSensorCard({
       </div>
     `
     : `<div class="sensor-card__trend sensor-card__trend--empty"></div>`;
+  */
+  const trendMarkup = "";
   const growthRisk = getGrowthRisk(sensorKey, value);
   const growthRiskMarkup = growthRisk
     ? `
