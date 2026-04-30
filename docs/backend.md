@@ -68,9 +68,17 @@ CREATE TABLE measurements (
   temp_c DOUBLE NULL,
   tds_ppm DOUBLE NULL,
   turb_ntu DOUBLE NULL,
+  ph_level DOUBLE NULL,
   raw_json JSON NULL,
   FOREIGN KEY (device_id) REFERENCES devices(device_id)
 );
+```
+
+If the table already exists from an older setup, add the missing pH column:
+
+```SQL
+ALTER TABLE measurements
+  ADD COLUMN ph_level DOUBLE NULL AFTER turb_ntu;
 ```
 
 Test
