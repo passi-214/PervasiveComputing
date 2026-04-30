@@ -1,4 +1,3 @@
-import { createStatusBadge } from "./statusBadge.js";
 import { formatNumber, formatTimestamp } from "../utils/formatters.js";
 import { getGrowthRisk } from "../utils/growthRisk.js";
 import { sensorIcons, trendIcons } from "../utils/icons.js";
@@ -15,7 +14,6 @@ export function createSensorCard({
   unit,
   value,
   decimals = 1,
-  quality = "good",
   lastMeasurement,
   trend
 }) {
@@ -61,8 +59,6 @@ export function createSensorCard({
       <strong>${formatTimestamp(lastMeasurement)}</strong>
     </div>
   `;
-
-  card.append(createStatusBadge(quality));
 
   return card;
 }
