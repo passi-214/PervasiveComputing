@@ -1,4 +1,3 @@
-import { createStatusBadge } from "./statusBadge.js";
 import { formatNumber, formatTimestamp } from "../utils/formatters.js";
 import { getGrowthRisk } from "../utils/growthRisk.js";
 import { sensorIcons, trendIcons } from "../utils/icons.js";
@@ -15,13 +14,13 @@ export function createSensorCard({
   unit,
   value,
   decimals = 1,
-  quality = "good",
   lastMeasurement,
   trend
 }) {
   const card = document.createElement("article");
   card.className = `sensor-card card ${SENSOR_THEME_CLASS[sensorKey] || ""}`;
 
+  /*
   const trendMarkup = trend && trend.direction !== "none"
     ? `
       <div class="sensor-card__trend sensor-card__trend--${trend.direction}">
@@ -30,6 +29,8 @@ export function createSensorCard({
       </div>
     `
     : `<div class="sensor-card__trend sensor-card__trend--empty"></div>`;
+  */
+  const trendMarkup = "";
   const growthRisk = getGrowthRisk(sensorKey, value);
   const growthRiskMarkup = growthRisk
     ? `
@@ -61,8 +62,6 @@ export function createSensorCard({
       <strong>${formatTimestamp(lastMeasurement)}</strong>
     </div>
   `;
-
-  card.append(createStatusBadge(quality));
 
   return card;
 }
