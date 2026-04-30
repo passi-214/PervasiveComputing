@@ -9,8 +9,8 @@
                         "client_id": "bridge-ttn-test",
                         "keep_alive": 60,
                         "loop_prevention": false,
-                        "password": "NNSXS.4NTL24EM5RGKU5J2YW54VONSRL2ODRSIW2CXL7A.V5UBH3PNSQ6YNJFSQZCJ6RSQHVLLCB3W5TX6XHJL5EEWLIRBAGNQ",
-                        "username": "maxmustermann@ttn",
+                        "password": "CHANGE_ME_IN_ENV",
+                        "username": "your-application@ttn",
                         "will_message": "",
                         "will_qos": 0,
                         "will_retain": false,
@@ -31,7 +31,7 @@
                     "topics": [
                         {
                             "qos": 0,
-                            "topic": "v3/maxmustermann@ttn/devices/+/up"
+                            "topic": "v3/your-application@ttn/devices/+/up"
                         }
                     ]
                 },

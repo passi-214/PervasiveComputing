@@ -47,7 +47,7 @@ sudo mariadb
 Create tables
 ```SQL
 CREATE DATABASE max;
-CREATE USER 'max'@'localhost' IDENTIFIED BY 'm00st3rm4nn';
+CREATE USER 'max'@'localhost' IDENTIFIED BY '<strong-password>';
 GRANT ALL PRIVILEGES ON max.* TO 'max'@'localhost';
 FLUSH PRIVILEGES;
 
