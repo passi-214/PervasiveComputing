@@ -3,13 +3,24 @@ const SSE_URL = "/api/measurements/stream";
 let measurements = [];
 let eventSource = null;
 let initialized = false;
+let notifyTimer = null;
 
 const listeners = new Set();
 
 function notifyListeners() {
+  notifyTimer = null;
+
   for (const listener of listeners) {
     listener([...measurements]);
   }
+}
+
+function scheduleNotifyListeners() {
+  if (notifyTimer) {
+    return;
+  }
+
+  notifyTimer = window.setTimeout(notifyListeners, 100);
 }
 
 function sortByTimestampAsc(measurements) {
@@ -56,15 +67,19 @@ function mergeMeasurement(previous, next) {
 
 function addMeasurement(measurement) {
   const normalizedMeasurement = normalizeMeasurement(measurement);
+  let previousForDevice = null;
 
-  const previousForDevice = sortByTimestampAsc(measurements)
-    .filter((m) => m.device_id === normalizedMeasurement.device_id)
-    .at(-1);
+  for (let index = measurements.length - 1; index >= 0; index -= 1) {
+    if (measurements[index].device_id === normalizedMeasurement.device_id) {
+      previousForDevice = measurements[index];
+      break;
+    }
+  }
 
   const mergedMeasurement = mergeMeasurement(previousForDevice, normalizedMeasurement);
 
   measurements.push(mergedMeasurement);
-  notifyListeners();
+  scheduleNotifyListeners();
 }
 
 export function startMeasurementStream() {
