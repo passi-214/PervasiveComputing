@@ -38,7 +38,10 @@ TTN_TOPIC="${TTN_TOPIC:-}"
 
 LOCAL_BRIDGE_CLIENT_ID="${LOCAL_BRIDGE_CLIENT_ID:-bridge-local}"
 LOCAL_MQTT_HOST="${LOCAL_MQTT_HOST:-127.0.0.1}"
-LOCAL_MQTT_PORT="${LOCAL_MQTT_PORT:-1883}"
+LOCAL_MQTT_PORT="${LOCAL_MQTT_PORT:-8883}"
+LOCAL_MQTT_TLS_CERT="${LOCAL_MQTT_TLS_CERT:-/etc/ssl/mqttsuite/broker.crt}"
+LOCAL_MQTT_TLS_KEY="${LOCAL_MQTT_TLS_KEY:-/etc/ssl/mqttsuite/broker.key}"
+LOCAL_MQTT_TLS_CA="${LOCAL_MQTT_TLS_CA:-/etc/ssl/mqttsuite/ca.crt}"
 
 if [[ -z "$TTN_TOPIC" && -n "$TTN_USERNAME" ]]; then
   TTN_TOPIC="v3/$TTN_USERNAME/devices/+/up"
@@ -59,6 +62,14 @@ require_env() {
 }
 
 require_env TTN_USERNAME TTN_PASSWORD TTN_TOPIC MQTTCLI_SUB_TOPIC
+
+for tls_file in "$LOCAL_MQTT_TLS_CERT" "$LOCAL_MQTT_TLS_KEY" "$LOCAL_MQTT_TLS_CA"; do
+  if [[ ! -r "$tls_file" ]]; then
+    echo "Missing or unreadable TLS file: $tls_file" >&2
+    echo "Create the local MQTT certificates first, or override LOCAL_MQTT_TLS_CERT/KEY/CA in .env." >&2
+    exit 1
+  fi
+done
 
 export MQTTCLI_DASHBOARD_PORT="${MQTTCLI_DASHBOARD_PORT:-8090}"
 export MQTTCLI_FRONTEND_ROOT="${MQTTCLI_FRONTEND_ROOT:-$PROJECT_ROOT/frontend}"
@@ -149,10 +160,10 @@ bridge_definition = {
                         "will_topic": "",
                     },
                     "network": {
-                        "encryption": "legacy",
+                        "encryption": "tls",
                         "in": {
                             "host": env("LOCAL_MQTT_HOST"),
-                            "port": env_int("LOCAL_MQTT_PORT", 1883),
+                            "port": env_int("LOCAL_MQTT_PORT", 8883),
                         },
                         "instance_name": "local-mqtt",
                         "protocol": "in",
@@ -276,7 +287,7 @@ pkill -f mqttbroker 2>/dev/null || true
 pkill -f mqttbridge 2>/dev/null || true
 pkill -f mqttcli 2>/dev/null || true
 wait_for_processes_to_exit
-wait_for_port_free 1883
+wait_for_port_free "$LOCAL_MQTT_PORT"
 wait_for_port_free 8081
 wait_for_port_free 8082
 if dashboard_enabled; then
@@ -288,8 +299,12 @@ write_bridge_definition
 
 echo "Starting local broker..."
 mqttbroker \
-  in-mqtt --disabled=false \
-  in-mqtts --disabled \
+  in-mqtt --disabled \
+  in-mqtts --disabled=false \
+    local --host "$LOCAL_MQTT_HOST" --port "$LOCAL_MQTT_PORT" \
+    tls --cert "$LOCAL_MQTT_TLS_CERT" \
+        --cert-key "$LOCAL_MQTT_TLS_KEY" \
+        --ca-cert "$LOCAL_MQTT_TLS_CA" \
   in6-mqtt --disabled \
   in6-mqtts --disabled \
   un-mqtt --disabled \
@@ -301,7 +316,7 @@ mqttbroker \
   un-http --disabled \
   un-https --disabled &
 pids+=("$!")
-wait_for_port_listening 1883 "mqttbroker"
+wait_for_port_listening "$LOCAL_MQTT_PORT" "mqttbroker"
 
 echo "Starting bridge..."
 mqttbridge bridge --definition "$BRIDGE_DEFINITION" --html-dir "$BRIDGE_HTML_DIR" &
@@ -309,8 +324,9 @@ pids+=("$!")
 wait_for_port_listening 8081 "mqttbridge admin"
 
 echo "Starting MQTT CLI DB subscriber..."
-"$MQTTCLI" in-mqtt --disabled=false \
-  remote --host 127.0.0.1 --port 1883 \
+"$MQTTCLI" in-mqtts --disabled=false \
+  remote --host "$LOCAL_MQTT_HOST" --port "$LOCAL_MQTT_PORT" \
+  tls --ca-cert "$LOCAL_MQTT_TLS_CA" \
   session --client-id "$MQTTCLI_CLIENT_ID" \
   db --database "$DB_NAME" \
      --username "$DB_USER" \
