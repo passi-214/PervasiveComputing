@@ -304,7 +304,6 @@ mqttbroker \
     local --host "$LOCAL_MQTT_HOST" --port "$LOCAL_MQTT_PORT" \
     tls --cert "$LOCAL_MQTT_TLS_CERT" \
         --cert-key "$LOCAL_MQTT_TLS_KEY" \
-        --ca-cert "$LOCAL_MQTT_TLS_CA" \
   in6-mqtt --disabled \
   in6-mqtts --disabled \
   un-mqtt --disabled \
